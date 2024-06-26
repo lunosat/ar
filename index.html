@@ -6,7 +6,7 @@
     </head>
     <body style="margin: 0px; overflow: hidden;">
         <a-scene embedded arjs>
-            <a-marker preset="hiro">
+            <a-marker preset="hiro" id="marker">
                 <!-- Video component -->
                 <a-video 
                     src="#video" 
@@ -15,9 +15,21 @@
                     height="0.5" 
                     rotation="-90 0 0">
                 </a-video>
-                <video id="video" src="https://cdn.brid.tv/live/partners/17402/sd/969965.mp4" autoplay loop crossorigin="anonymous" webkit-playsinline playsinline></video>
+                <video id="video" src="https://cdn.brid.tv/live/partners/17402/sd/969965.mp4" loop crossorigin="anonymous" webkit-playsinline playsinline></video>
             </a-marker>
             <a-entity camera></a-entity>
         </a-scene>
+        
+        <script>
+            document.querySelector("#marker").addEventListener("markerFound", (e) => {
+                let video = document.querySelector("#video");
+                video.play();
+            });
+
+            document.querySelector("#marker").addEventListener("markerLost", (e) => {
+                let video = document.querySelector("#video");
+                video.pause();
+            });
+        </script>
     </body>
 </html>
